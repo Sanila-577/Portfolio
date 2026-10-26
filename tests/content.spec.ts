@@ -228,3 +228,62 @@ test.describe('timelines', () => {
     }
   })
 })
+
+test.describe('scrolling stays where the visitor puts it', () => {
+  // Regression: the hash-scroll correction used to pull visitors back to the section.
+  async function backwardJumps(page: import('@playwright/test').Page) {
+    await page.mouse.move(640, 400)
+    const ys: number[] = []
+    for (let i = 0; i < 15; i++) {
+      await page.mouse.wheel(0, 400)
+      await page.waitForTimeout(120)
+      ys.push(await page.evaluate(() => Math.round(scrollY)))
+    }
+    await page.waitForTimeout(1500)
+    ys.push(await page.evaluate(() => Math.round(scrollY)))
+    return ys.filter((y, i) => i > 0 && y < ys[i - 1] - 50)
+  }
+
+  test('after clicking a nav link', async ({ page }) => {
+    await page
+      .locator('nav[aria-label="Main"] ul')
+      .getByRole('link', { name: 'About', exact: true })
+      .click()
+    await page.waitForTimeout(300)
+    expect(await backwardJumps(page)).toEqual([])
+  })
+
+  test('after opening a link to a section', async ({ page }) => {
+    await page.goto('/#journey')
+    await page.waitForTimeout(400)
+    expect(await backwardJumps(page)).toEqual([])
+  })
+})
+
+test('every certification panel with a link is clickable', async ({ page }) => {
+  const online = page.locator('#certifications a[href^="http"]')
+  const images = page.locator('#certifications button[aria-label^="View certificate"]')
+  const labels = page.locator('#certifications span', { hasText: 'View certification' })
+  expect(await online.count()).toBeGreaterThan(0)
+  await expect(labels).toHaveCount((await online.count()) + (await images.count()))
+  for (const card of await online.all()) {
+    await expect(card).toHaveAttribute('target', '_blank')
+    await expect(card.locator('.spotlight')).toHaveCount(1)
+  }
+})
+
+test('certificate screenshots open in the on-page viewer and load', async ({ page }) => {
+  const images = page.locator('#certifications button[aria-label^="View certificate"]')
+  const n = await images.count()
+  test.skip(n === 0, 'no certificate screenshots')
+  for (let i = 0; i < n; i++) {
+    await images.nth(i).click()
+    const img = page.locator('.yarl__slide_image').first()
+    await expect(img).toBeVisible()
+    await expect
+      .poll(() => img.evaluate((el: HTMLImageElement) => el.naturalWidth))
+      .toBeGreaterThan(0)
+    await page.keyboard.press('Escape')
+    await expect(img).toBeHidden()
+  }
+})

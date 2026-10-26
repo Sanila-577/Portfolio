@@ -22,13 +22,13 @@
 }
 
 :root[data-theme='light'] {
-  /* Light values are tuned for visible borders and WCAG AA text on --bg and --surface. */
+  /* Light mode: black borders and near-black text for maximum contrast. */
   --bg: #f5f7fa;
   --surface: #ffffff;
   --surface-2: #edf1f6;
-  --border: #c5cfdb;
-  --text: #0f172a;
-  --muted: #3f4b5c;
+  --border: #111111;
+  --text: #000000;
+  --muted: #1f2933;
   --accent: #0e7490;
   --accent-2: #4338ca;
   --accent-contrast: #ffffff;

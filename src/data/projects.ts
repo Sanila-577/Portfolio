@@ -62,6 +62,7 @@ export const projects: Project[] = [
       'Yield prediction and forecasting at district and national level to support policy planning.',
       'Anomaly and pest-outbreak detection for abiotic (flood, drought) and biotic (BPH, rice blast, paddy bug) stress.',
     ],
+    screenshotCount: 2,
   },
   {
     slug: 'neuro-leaf',
@@ -96,6 +97,7 @@ export const projects: Project[] = [
       'Research-driven question answering using Retrieval-Augmented Generation (RAG) with FAISS as the vector database.',
       'Deployed as a Streamlit app, with a FastAPI service and Docker packaging.',
     ],
+    screenshotCount: 2,
   },
   {
     slug: 'obsergent',
@@ -130,7 +132,7 @@ export const projects: Project[] = [
       'Agent behaviour analysis that detects tool-call loops, prompt-injection patterns and tool-description drift.',
       'Everything stored locally in a single SQLite file; works with Ollama, OpenAI, Anthropic, Groq, OpenRouter and any OpenAI-compatible server.',
     ],
-    screenshotCount: 1,
+    screenshotCount: 3,
   },
   {
     slug: 'customer-churn',
@@ -187,6 +189,7 @@ export const projects: Project[] = [
         note: 'Unified production pipeline',
       },
     ],
+    screenshotCount: 2,
   },
   {
     slug: 'supplygenie',
@@ -224,6 +227,7 @@ export const projects: Project[] = [
       'FastAPI backend with a REST API and interactive Swagger/ReDoc docs.',
       'Dockerised backend optimised for Cloud Run; frontend deployed on Vercel.',
     ],
+    screenshotCount: 2,
   },
   {
     slug: 'estatefinder',
@@ -244,6 +248,7 @@ export const projects: Project[] = [
       'Favourites with add/remove, duplicate prevention, clear-all and drag-and-drop.',
       'Responsive layouts; client-side security via CSP; tested with Vitest and React Testing Library.',
     ],
+    screenshotCount: 2,
   },
   {
     slug: 'smart-campus-backend',
@@ -261,6 +266,7 @@ export const projects: Project[] = [
       'Business-rule checks, e.g. 409 Conflict when deleting a room that still has sensors.',
       'Query filtering such as /sensors?type=CO2 and resilient error handling.',
     ],
+    screenshotCount: 1,
   },
   {
     slug: 'ocean-hope',
@@ -280,5 +286,6 @@ export const projects: Project[] = [
       'Volunteer sign-up and feedback forms with validation.',
       'Fully responsive layout, deployed on GitHub Pages.',
     ],
+    screenshotCount: 2,
   },
 ]

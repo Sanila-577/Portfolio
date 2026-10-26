@@ -44,12 +44,24 @@ function ScrollManager() {
       }, delay)
     }
     const onScroll = () => settle()
-    const cleanup = () => window.removeEventListener('scroll', onScroll)
+    // The visitor scrolling, tapping or pressing a key takes over: never pull them back.
+    const USER_INPUT = ['wheel', 'touchstart', 'keydown', 'pointerdown'] as const
+    const onUserInput = () => {
+      cleanup()
+      window.clearTimeout(timer)
+      // Stop any smooth scroll still in flight so it can't drag them back.
+      window.scrollTo({ top: window.scrollY, behavior: 'instant' })
+    }
+    const cleanup = () => {
+      window.removeEventListener('scroll', onScroll)
+      USER_INPUT.forEach((t) => window.removeEventListener(t, onUserInput))
+    }
     const tryScroll = () => {
       const el = document.getElementById(id)
       if (el) {
         el.scrollIntoView({ behavior: 'smooth' })
         window.addEventListener('scroll', onScroll, { passive: true })
+        USER_INPUT.forEach((t) => window.addEventListener(t, onUserInput, { passive: true }))
         // Some browsers start a smooth scroll late; don't correct before it has begun.
         settle(1000)
       } else if (tries++ < 20) setTimeout(tryScroll, 50)

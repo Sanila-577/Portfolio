@@ -16,14 +16,14 @@ export interface AwardItem {
   /** Rank chips, e.g. { label: 'University', value: '54' }. */
   stats?: { label: string; value: string }[]
   /**
-   * Number of photos in public/images/awards/<slug>/ named 1.jpg, 2.jpg…
+   * Number of photos in public/images/awards/<slug>/ named 1.png, 2.png…
    * The first is the card cover. Missing files fall back to an icon.
    */
   photoCount: number
 }
 
 export function photosOf(a: AwardItem) {
-  return Array.from({ length: a.photoCount }, (_, i) => `/images/awards/${a.slug}/${i + 1}.jpg`)
+  return Array.from({ length: a.photoCount }, (_, i) => `/images/awards/${a.slug}/${i + 1}.png`)
 }
 
 /** Newest first, from LinkedIn Honors & Awards plus the CV. */
@@ -38,7 +38,7 @@ export const awards: AwardItem[] = [
     associatedWith: 'University of Westminster',
     description:
       'Awarded the Gold Medal for RiceVision, a satellite-based paddy crop monitoring system developed for Sri Lanka. It was recognized as the Best Software Development Group Project in the Computer Science category at Cutting Edge 2026. RiceVision leverages satellite optical data, remote sensing and AI to enable large-scale paddy monitoring and support data-driven agricultural decision-making.',
-    photoCount: 4,
+    photoCount: 3,
   },
   {
     slug: 'iit-excellence-2025',
@@ -95,7 +95,7 @@ export const awards: AwardItem[] = [
       { label: 'Region', value: '1,582' },
       { label: 'Global', value: '2,882' },
     ],
-    photoCount: 5,
+    photoCount: 2,
   },
   {
     slug: 'cypher-hackathon-2025',
@@ -127,7 +127,7 @@ export const awards: AwardItem[] = [
         'Sabir Sahdi Mohamed Siraj',
       ],
     },
-    photoCount: 4,
+    photoCount: 1,
   },
   {
     slug: 'haxpedition-2024',
@@ -140,7 +140,7 @@ export const awards: AwardItem[] = [
     description:
       'Haxpedition is a 6-hour coding hackathon organized by the IEEE Student Branch of IIT.',
     team: { name: 'Unsorted Arrays', members: ['Umar Arsath', 'Samindi Umesha Liyanage'] },
-    photoCount: 3,
+    photoCount: 2,
   },
   {
     slug: 'slaao-2022',
@@ -211,6 +211,6 @@ export const awards: AwardItem[] = [
     associatedWith: 'Royal College Colombo',
     description:
       'Sir Arthur C. Clarke Challenge Trophy · Interstellar’22 · Hilda Kulerathne Challenge Trophy · Universal Night Competition.',
-    photoCount: 1,
+    photoCount: 3,
   },
 ]
